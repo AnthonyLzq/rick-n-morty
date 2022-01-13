@@ -6,12 +6,12 @@ const Header = () => {
   const handleClick = () => setDarkMode(!darkMode)
 
   return (
-    <div className='Header'>
-      <h1>ReactHooks</h1>
+    <header className='Header'>
+      <h2>ReactHooks</h2>
       <button type='button' onClick={handleClick}>
         {darkMode ? 'Dark Mode' : 'Light Mode'}
       </button>
-    </div>
+    </header>
   )
 }
 
