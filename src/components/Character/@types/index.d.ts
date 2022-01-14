@@ -2,7 +2,7 @@ type AnimationsKeys = keyof typeof import('../utils').animations
 type AnimationsValues = typeof import('../utils').animations[AnimationsKeys]
 type Display = 'none' | 'grid'
 
-interface State {
+interface CharacterState {
   display: Display
   animation: AnimationsValues
   t: NodeJS.Timeout | null

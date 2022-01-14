@@ -8,16 +8,16 @@ interface CharacterProps {
   character: RickAndMortyCharacter
 }
 
-const initialState: State = {
+const initialState: CharacterState = {
   display: 'none',
   animation: animations.downToUp,
   t: null
 }
 
 const reducerObject = (
-  state: State,
+  state: CharacterState,
   payload: Payload
-): Record<ActionTypesValues, State> => ({
+): Record<ActionTypesValues, CharacterState> => ({
   [actionTypes.changeAnimation]: {
     ...state,
     animation: payload as AnimationsValues
@@ -32,7 +32,7 @@ const reducerObject = (
   }
 })
 
-const reducer = (state: State, action: Action) => {
+const reducer = (state: CharacterState, action: Action) => {
   reducerValidation(action)
 
   const { payload, type } = action
