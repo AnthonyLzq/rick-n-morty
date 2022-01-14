@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](///compare/v0.2.0...v0.3.0) (2022-01-14)
+
+
+### Features
+
+* implemented relative imports 12f0bd0
+* implemented useReducer in Character component b8f43a5
+
 ## [0.2.0](///compare/v0.1.0...v0.2.0) (2022-01-14)
 
 
