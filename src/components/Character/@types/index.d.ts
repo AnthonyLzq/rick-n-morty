@@ -8,11 +8,11 @@ interface CharacterState {
   t: NodeJS.Timeout | null
 }
 
-type ActionTypesKeys = keyof typeof import('../utils').actionTypes
-type ActionTypesValues = typeof import('../utils').actionTypes[ActionTypesKeys]
-type Payload = AnimationsValues | Display | NodeJS.Timeout | null
+type CharacterActionTypesKeys = keyof typeof import('../utils').actionTypes
+type CharacterActionTypesValues = typeof import('../utils').actionTypes[CharacterActionTypesKeys]
+type CharacterPayload = AnimationsValues | Display | NodeJS.Timeout | null
 
-interface Action {
-  payload: Payload
-  type: ActionTypesValues
+interface CharacterAction {
+  payload: CharacterPayload
+  type: CharacterActionTypesValues
 }

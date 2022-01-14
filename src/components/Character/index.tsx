@@ -16,8 +16,8 @@ const initialState: CharacterState = {
 
 const reducerObject = (
   state: CharacterState,
-  payload: Payload
-): Record<ActionTypesValues, CharacterState> => ({
+  payload: CharacterPayload
+): Record<CharacterActionTypesValues, CharacterState> => ({
   [actionTypes.changeAnimation]: {
     ...state,
     animation: payload as AnimationsValues
@@ -32,7 +32,7 @@ const reducerObject = (
   }
 })
 
-const reducer = (state: CharacterState, action: Action) => {
+const reducer = (state: CharacterState, action: CharacterAction) => {
   reducerValidation(action)
 
   const { payload, type } = action

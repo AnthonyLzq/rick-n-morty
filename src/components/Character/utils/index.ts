@@ -1,6 +1,6 @@
 import { animations, actionTypes } from './constants'
 
-const reducerValidation = (action: Action) => {
+const reducerValidation = (action: CharacterAction) => {
   const { payload, type } = action
 
   const isAnimation = (arg: any): arg is AnimationsValues => {
@@ -15,17 +15,17 @@ const reducerValidation = (action: Action) => {
 
   if (type === actionTypes.changeAnimation && !isAnimation(payload))
     throw new Error(
-      `Payload does not match the type. Expected payload to be "down-to-up 1s forwards" or "up-to-down 1s forwards", but received ${payload}`
+      `CharacterPayload does not match the type. Expected payload to be "down-to-up 1s forwards" or "up-to-down 1s forwards", but received ${payload}`
     )
 
   if (type === actionTypes.changeDisplay && !isDisplay(payload))
     throw new Error(
-      `Payload does not match the type. Expected payload to be "none" or "grid", but received ${payload}`
+      `CharacterPayload does not match the type. Expected payload to be "none" or "grid", but received ${payload}`
     )
 
   if (type === actionTypes.changeTimeout && !isNullableTimeout(payload))
     throw new Error(
-      `Payload does not match the type. Expected to be "null" or "number", but received ${payload}`
+      `CharacterPayload does not match the type. Expected to be "null" or "number", but received ${payload}`
     )
 }
 
