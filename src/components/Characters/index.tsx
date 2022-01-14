@@ -5,7 +5,7 @@ import './index.css'
 
 const Characters = () => {
   const [characters, setCharacters] = useState<RickAndMortyCharacter[]>([])
-  const [info, setInfo] = useState<RickAndMortyApiCharacterResponseInfo | null>(
+  const [, setInfo] = useState<RickAndMortyApiCharacterResponseInfo | null>(
     null
   )
 
@@ -17,8 +17,6 @@ const Characters = () => {
         setInfo(i)
       })
   }, [])
-
-  console.log({ characters, info })
 
   return (
     <section className='Characters'>

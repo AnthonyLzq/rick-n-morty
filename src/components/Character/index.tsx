@@ -1,76 +1,92 @@
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC, useContext, useReducer } from 'react'
 
 import DarkModeContext from 'context/darkModeContext'
-import Loader from 'components/Loader'
+import { animations, actionTypes, reducerValidation } from './utils'
 import './index.css'
-
-const ERROR_IMAGE =
-  'https://static.wikia.nocookie.net/memes-pedia/images/7/74/This_Is_Fine.png/revision/latest/top-crop/width/360/height/450?cb=20170101154622&path-prefix=es'
 
 interface CharacterProps {
   character: RickAndMortyCharacter
 }
 
-const animations = {
-  downToUp: 'down-to-up 1s forwards',
-  upToDown: 'up-to-down 1s forwards'
+const initialState: State = {
+  display: 'none',
+  animation: animations.downToUp,
+  t: null
+}
+
+const reducerObject = (
+  state: State,
+  payload: Payload
+): Record<ActionTypesValues, State> => ({
+  [actionTypes.changeAnimation]: {
+    ...state,
+    animation: payload as AnimationsValues
+  },
+  [actionTypes.changeDisplay]: {
+    ...state,
+    display: payload as Display
+  },
+  [actionTypes.changeTimeout]: {
+    ...state,
+    t: payload as NodeJS.Timeout | null
+  }
+})
+
+const reducer = (state: State, action: Action) => {
+  reducerValidation(action)
+
+  const { payload, type } = action
+
+  return reducerObject(state, payload)[type]
 }
 
 const Character: FC<CharacterProps> = props => {
   const {
-    character: { name, url, status, gender, species, origin, location }
+    character: { name, image, status, gender, species, origin, location }
   } = props
   const { darkMode } = useContext(DarkModeContext)
   const backgroundColor = darkMode ? '#b2b2b2' : '#222'
   const color = darkMode ? '#222' : '#b2b2b2'
-  const [image, setImage] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<unknown>(false)
-  const [display, setDisplay] = useState('none')
-  const [animation, setAnimation] = useState(animations.downToUp)
-  const [t, setT] = useState<NodeJS.Timeout | null>(null)
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      fetch(url)
-        .then(response => response.json())
-        .then(result => {
-          setImage(result.image)
-          setLoading(false)
-        })
-        .catch(_ => {
-          setError(true)
-          setLoading(false)
-        })
-    }, 1000)
-
-    return () => clearTimeout(timeout)
-  }, [url])
+  const [{ animation, display, t }, dispatch] = useReducer(
+    reducer,
+    initialState
+  )
 
   const onMouseEnter = () => {
     if (t) {
       clearTimeout(t)
-      setT(null)
+      dispatch({ type: actionTypes.changeTimeout, payload: null })
     }
 
     if (animation === animations.upToDown)
-      setAnimation(animations.downToUp)
+      dispatch({
+        type: actionTypes.changeAnimation,
+        payload: animations.downToUp
+      })
 
-    if (!loading && !error) setDisplay('grid')
+    dispatch({ type: actionTypes.changeDisplay, payload: 'grid' })
   }
 
   const onMouseLeave = () => {
     // setTimeout(() => {
     //   setAnimation(animations.upToDown)
     // }, 500)
-    setAnimation(animations.upToDown)
-    setT(
-      setTimeout(() => {
-        if (display === 'grid') setDisplay('none')
+    dispatch({
+      type: actionTypes.changeAnimation,
+      payload: animations.upToDown
+    })
+    dispatch({
+      type: actionTypes.changeTimeout,
+      payload: setTimeout(() => {
+        if (display === 'grid')
+          dispatch({ type: actionTypes.changeDisplay, payload: 'none' })
 
-        setAnimation(animations.downToUp)
+        dispatch({
+          type: actionTypes.changeAnimation,
+          payload: animations.downToUp
+        })
       }, 1500)
-    )
+    })
   }
 
   return (
@@ -79,13 +95,7 @@ const Character: FC<CharacterProps> = props => {
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <img src={ERROR_IMAGE} alt='error' />
-      ) : (
-        <img src={image} alt={name} />
-      )}
+      <img src={image} alt={name} />
       <h3>{name}</h3>
       <footer
         style={{
