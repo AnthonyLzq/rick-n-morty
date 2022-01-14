@@ -1,7 +1,7 @@
 import { FC, useContext, useEffect, useState } from 'react'
 
-import DarkModeContext from '../../context/darkModeContext'
-import Loader from '../Loader'
+import DarkModeContext from 'context/darkModeContext'
+import Loader from 'components/Loader'
 import './index.css'
 
 const ERROR_IMAGE =

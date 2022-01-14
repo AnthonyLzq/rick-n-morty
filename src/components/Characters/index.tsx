@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import Character from '../Character'
+import Character from 'components/Character'
 import './index.css'
 
 const Characters = () => {

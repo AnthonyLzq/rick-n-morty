@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import DarkModeContext from '../../context/darkModeContext'
+import DarkModeContext from 'context/darkModeContext'
 
 import './index.css'
 
