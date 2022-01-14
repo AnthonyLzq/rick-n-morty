@@ -1,0 +1,50 @@
+.Character {
+  box-sizing: border-box;
+  max-height: 360px;
+  overflow-y: hidden;
+}
+
+.Character > img {
+  border-radius: 8px;
+  width: 300px;
+  object-fit: cover;
+}
+
+.Character > footer {
+  position: relative;
+  border-radius: 8px;
+  bottom: 80px;
+  height: 300px;
+  opacity: 70%;
+  place-items: center;
+}
+
+.Character > footer > ul {
+  padding: 0px 12px;
+  margin: 0;
+  list-style: none;
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  gap: 12px;
+  font-weight: 600;
+}
+
+@keyframes down-to-up {
+  0% {
+    transform: translateY(0px);
+  }
+
+  100% {
+    transform: translateY(-282px);
+  }
+}
+
+@keyframes up-to-down {
+  0% {
+    transform: translateY(-282px);
+  }
+
+  100% {
+    transform: translateY(78px);
+  }
+}

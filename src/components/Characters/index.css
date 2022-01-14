@@ -1,0 +1,8 @@
+.Characters {
+  --card-size: 300px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--card-size));
+  gap: 24px;
+  place-content: center;
+  margin-top: 24px;
+}
