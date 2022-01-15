@@ -1,4 +1,10 @@
-import { useEffect, useReducer, useMemo, ChangeEvent, useContext } from 'react'
+import {
+  useEffect,
+  useReducer,
+  useMemo,
+  useContext,
+  useRef
+} from 'react'
 
 import Character from 'components/Character'
 import DarkModeContext from 'context/darkModeContext'
@@ -35,9 +41,7 @@ const reducer = (state: CharactersState, action: CharactersAction) => {
       const favorites = state.favorites.concat(payload as RickAndMortyCharacter)
       localStorage.setItem(
         'favorites',
-        JSON.stringify([
-          ...new Set(favorites.map(({ id }) => id))
-        ])
+        JSON.stringify([...new Set(favorites.map(({ id }) => id))])
       )
 
       return {
@@ -51,9 +55,7 @@ const reducer = (state: CharactersState, action: CharactersAction) => {
       )
       localStorage.setItem(
         'favorites',
-        JSON.stringify([
-          ...new Set(favorites.map(({ id }) => id))
-        ])
+        JSON.stringify([...new Set(favorites.map(({ id }) => id))])
       )
 
       return {
@@ -92,6 +94,7 @@ const Characters = () => {
     initialState
   )
   const favoriteIds = favorites.map(({ id }) => id)
+  const searchRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const favIds = getFavoritesFromLocalStorage()
@@ -135,13 +138,12 @@ const Characters = () => {
     })
   }
 
-  const handleSearch = ({
-    target: { value }
-  }: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: actionTypes.search,
-      payload: value
-    })
+  const handleSearch = () => {
+    if (searchRef.current)
+      dispatch({
+        type: actionTypes.search,
+        payload: searchRef.current.value
+      })
   }
 
   return (
@@ -153,7 +155,8 @@ const Characters = () => {
             id='search'
             className='input'
             value={search}
-            onChange={e => handleSearch(e)}
+            ref={searchRef}
+            onChange={handleSearch}
             placeholder=' '
             style={{
               color: darkMode ? COLORS.white : COLORS.black,
