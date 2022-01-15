@@ -1,4 +1,4 @@
-import { FC, useContext, useReducer } from 'react'
+import { FC, useContext, useEffect, useReducer } from 'react'
 
 import DarkModeContext from 'context/darkModeContext'
 import { animations, actionTypes, reducerValidation } from './utils'
@@ -62,6 +62,13 @@ const Character: FC<CharacterProps> = props => {
     reducer,
     initialState
   )
+
+  useEffect(() => {
+    if (t)
+      return () => {
+        clearTimeout(t)
+      }
+  }, [t])
 
   const onMouseEnter = () => {
     if (t) {

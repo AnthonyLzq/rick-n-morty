@@ -1,6 +1,6 @@
 const animations = {
-  downToUp: 'down-to-up 1s forwards',
-  upToDown: 'up-to-down 1s forwards'
+  downToUp: 'down-to-up 1.5s forwards',
+  upToDown: 'up-to-down 1.5s forwards'
 } as const
 
 const actionTypes = {
