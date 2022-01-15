@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/AnthonyLzq/rick-n-morty/compare/v0.5.0...v0.6.0) (2022-01-15)
+
+
+### Features
+
+* added and removed heart for favorite characters and them are now stored in localStorage ([a6b6050](https://github.com/AnthonyLzq/rick-n-morty/commit/a6b605033112c464aca91477e8edc52077d17aaf))
+* added validation for new cases of Characters reducer ([eb3247e](https://github.com/AnthonyLzq/rick-n-morty/commit/eb3247ee7612e6c271ae05dc7fbedf9c9fa81df8))
+* implemented heart change of color according to theme ([4d38452](https://github.com/AnthonyLzq/rick-n-morty/commit/4d3845288a9196fc145cfeeff8cd51daa3e2df59))
+* implemented useRef in Characters component ([99a1074](https://github.com/AnthonyLzq/rick-n-morty/commit/99a1074a940673020716d4c8c44b580720161de2))
+
+
+### Bug Fixes
+
+* removed console.log ([121e9d8](https://github.com/AnthonyLzq/rick-n-morty/commit/121e9d853114196c4eb73bb696b0b70dfee51670))
+
 ## [0.5.0](///compare/v0.4.0...v0.5.0) (2022-01-15)
 
 
