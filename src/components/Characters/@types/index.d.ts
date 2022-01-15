@@ -2,6 +2,7 @@ interface CharactersState {
   info: RickAndMortyApiCharacterResponseInfo | null
   characters: RickAndMortyCharacter[]
   favorites: RickAndMortyCharacter[]
+  search: string
 }
 
 type CharactersActionTypesKeys = keyof typeof import('../utils').actionTypes
@@ -14,6 +15,7 @@ type CharactersAndInfo = {
 type CharactersPayload =
   | CharactersAndInfo
   | RickAndMortyCharacter
+  | string
 
 interface CharactersAction {
   payload: CharactersPayload

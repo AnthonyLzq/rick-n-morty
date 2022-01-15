@@ -1,3 +1,16 @@
+/* $clr-primary: #18ffff;
+$clr-primary-light: #adffff;
+$clr-primary-dark: #091034;
+$clr-gray100: #f9fbff;
+$clr-gray150: #f4f6fb;
+$clr-gray200: #eef1f6;
+$clr-gray300: #ele5ee;
+$clr-gray400: #767b91;
+$clr-gray500: #4f546c;
+$clr-gray600: #2a324b;
+$clr-gray700: #161d34;
+$clr-bg: #060b23; */
+
 .Characters {
   --card-size: 300px;
   display: grid;
@@ -5,4 +18,42 @@
   gap: 24px;
   place-content: center;
   margin-top: 24px;
+}
+
+.search-container {
+  width: 100%;
+  display: grid;
+  place-content: center;
+  width: 100%;
+}
+
+.search {
+  width: 300px;
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  height: 3rem;
+  box-sizing: border-box;
+  border: 2px solid;
+  border-radius: 8px;
+  outline: none;
+  padding: 0.5rem 1.25rem;
+  background: none;
+}
+
+.label {
+  position: absolute;
+  left: 1rem;
+  top: 0.95rem;
+  padding: 0 0.5rem;
+  cursor: text;
+  transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+}
+
+.input:focus ~ .label,
+.input:not(:placeholder-shown).input:not(:focus) ~ .label {
+  top: -0.4rem;
+  font-size: 0.8rem;
 }
