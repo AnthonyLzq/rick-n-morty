@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/AnthonyLzq/rick-n-morty/compare/v0.7.0...v0.8.0) (2022-01-15)
+
+
+### Features
+
+* implemented custom useFetch hook for Characters component ([ca87d7c](https://github.com/AnthonyLzq/rick-n-morty/commit/ca87d7c89ab75625a959bd1109d9809b566fa612))
+
 ## [0.7.0](https://github.com/AnthonyLzq/rick-n-morty/compare/v0.6.1...v0.7.0) (2022-01-15)
 
 
