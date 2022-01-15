@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](///compare/v0.3.0...v0.4.0) (2022-01-15)
+
+
+### Features
+
+* implemented useReducer in Characters component 4ce19a3
+
+
+### Bug Fixes
+
+* added reducer return type 482cefc
+* changed ActionTypesKeys for CharacterActionTypesKeys, and analogously for ActionTypesValues, Action and Payload 9362b8e
+* mofifying State for CharacterState d5368d1
+
 ## [0.3.0](///compare/v0.2.0...v0.3.0) (2022-01-14)
 
 
