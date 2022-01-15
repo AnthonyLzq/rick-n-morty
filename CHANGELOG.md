@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.1](https://github.com/AnthonyLzq/rick-n-morty/compare/v0.6.0...v0.6.1) (2022-01-15)
+
+
+### Bug Fixes
+
+* fixed 0 padding when search for character ([8c58dd3](https://github.com/AnthonyLzq/rick-n-morty/commit/8c58dd39720fb99353dc30f02a965b64c3755483))
+* fixed isRickAndMortyCharacters validation ([ea5f292](https://github.com/AnthonyLzq/rick-n-morty/commit/ea5f292a9b0a5672c077c42607a54b86b3207b3a))
+* fixed timeout clean up function when component is unmount ([52812bb](https://github.com/AnthonyLzq/rick-n-morty/commit/52812bbd091f5704f6c7be9857b84e280220f532))
+
 ## [0.6.0](https://github.com/AnthonyLzq/rick-n-morty/compare/v0.5.0...v0.6.0) (2022-01-15)
 
 
