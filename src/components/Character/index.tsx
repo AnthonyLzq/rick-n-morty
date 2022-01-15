@@ -120,7 +120,9 @@ const Character: FC<CharacterProps> = props => {
         <h3>{name}</h3>
         {(favorite || wasFavorite) && (
           <img
-            src='https://img.icons8.com/material-rounded/24/000000/like--v1.png'
+            src={`https://img.icons8.com/material-rounded/24/${
+              darkMode ? COLORS.white.slice(1) : COLORS.black.slice(1)
+            }/like--v1.png`}
             alt='favorite'
           />
         )}
