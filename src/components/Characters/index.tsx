@@ -1,13 +1,8 @@
-import {
-  useEffect,
-  useReducer,
-  useMemo,
-  useContext,
-  useRef
-} from 'react'
+import { useEffect, useReducer, useMemo, useContext, useRef } from 'react'
 
 import Character from 'components/Character'
 import DarkModeContext from 'context/darkModeContext'
+import { useFetch } from 'hooks'
 import { actionTypes, reducerValidation } from './utils'
 import { COLORS } from 'utils'
 
@@ -89,20 +84,38 @@ const getFavoritesFromLocalStorage = (): number[] => {
 
 const Characters = () => {
   const { darkMode } = useContext(DarkModeContext)
+  const { response } = useFetch<RickAndMortyApiCharacterResponse>({
+    url: 'https://rickandmortyapi.com/api/character'
+  })
   const [{ characters, favorites, search }, dispatch] = useReducer(
     reducer,
     initialState
   )
   const favoriteIds = favorites.map(({ id }) => id)
-  const searchRef = useRef<HTMLInputElement | null>(null);
+  const searchRef = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {
-    const favIds = getFavoritesFromLocalStorage()
-    dispatch({
-      type: actionTypes.setFavorites,
-      payload: characters.filter(({ id }) => favIds.includes(id))
-    })
+    if (characters.length > 0) {
+      const favIds = getFavoritesFromLocalStorage()
+      dispatch({
+        type: actionTypes.setFavorites,
+        payload: characters.filter(({ id }) => favIds.includes(id))
+      })
+    }
   }, [characters])
+
+  useEffect(() => {
+    if (response) {
+      const { info, results } = response
+      dispatch({
+        type: actionTypes.setCharactersAndInfo,
+        payload: {
+          characters: results,
+          info
+        }
+      })
+    }
+  }, [response])
 
   const filteredCharacters = useMemo(
     () =>
@@ -111,20 +124,6 @@ const Characters = () => {
       ),
     [characters, search]
   )
-
-  useEffect(() => {
-    fetch('https://rickandmortyapi.com/api/character')
-      .then(response => response.json())
-      .then(({ info, results }: RickAndMortyApiCharacterResponse) => {
-        dispatch({
-          type: actionTypes.setCharactersAndInfo,
-          payload: {
-            characters: results,
-            info
-          }
-        })
-      })
-  }, [])
 
   const handleClick = (
     character: RickAndMortyCharacter,
