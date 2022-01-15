@@ -18,7 +18,9 @@ const reducerValidation = (action: CharactersAction) => {
   const isRickAndMortyCharacters = (
     arg: any
   ): arg is RickAndMortyCharacter[] => {
-    return arg && Array.isArray(arg) && typeof arg[0].id === 'number'
+    return arg && Array.isArray(arg) && arg.length > 0
+      ? arg[0].id && typeof arg[0].id === 'number'
+      : true
   }
   const isRickAndMortyCharacter = (arg: any): arg is RickAndMortyCharacter => {
     return arg && typeof arg.id === 'number'
