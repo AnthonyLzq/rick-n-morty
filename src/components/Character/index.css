@@ -4,10 +4,19 @@
   overflow-y: hidden;
 }
 
-.Character > img {
+.Character > img:first-child {
   border-radius: 8px;
   width: 300px;
   object-fit: cover;
+}
+
+.name-and-favorite {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
 }
 
 .Character > footer {

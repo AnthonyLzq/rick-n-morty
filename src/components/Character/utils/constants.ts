@@ -6,7 +6,8 @@ const animations = {
 const actionTypes = {
   changeAnimation: 'CHANGE_ANIMATION',
   changeDisplay: 'CHANGE_DISPLAY',
-  changeTimeout: 'CHANGE_TIMEOUT'
+  changeTimeout: 'CHANGE_TIMEOUT',
+  setFavorite: 'SET_FAVORITE'
 } as const
 
 export { animations, actionTypes }

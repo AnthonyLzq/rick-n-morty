@@ -8,13 +8,15 @@ import './index.css'
 
 interface CharacterProps {
   character: RickAndMortyCharacter
-  onClick: (character: RickAndMortyCharacter) => void
+  onClick: (character: RickAndMortyCharacter, favorite: boolean) => void
+  wasFavorite: boolean
 }
 
 const initialState: CharacterState = {
   display: 'none',
   animation: animations.downToUp,
-  t: null
+  t: null,
+  favorite: false
 }
 
 const reducerObject = (
@@ -32,6 +34,10 @@ const reducerObject = (
   [actionTypes.changeTimeout]: {
     ...state,
     t: payload as NodeJS.Timeout | null
+  },
+  [actionTypes.setFavorite]: {
+    ...state,
+    favorite: payload as boolean
   }
 })
 
@@ -47,15 +53,12 @@ const reducer = (
 }
 
 const Character: FC<CharacterProps> = props => {
-  const {
-    character,
-    onClick
-  } = props
+  const { character, onClick: onClickCharacter, wasFavorite } = props
   const { name, image, status, gender, species, origin, location } = character
   const { darkMode } = useContext(DarkModeContext)
   const backgroundColor = darkMode ? COLORS.white : COLORS.black
   const color = darkMode ? COLORS.black : COLORS.white
-  const [{ animation, display, t }, dispatch] = useReducer(
+  const [{ animation, display, t, favorite }, dispatch] = useReducer(
     reducer,
     initialState
   )
@@ -97,15 +100,31 @@ const Character: FC<CharacterProps> = props => {
     })
   }
 
+  const onClick = () => {
+    onClickCharacter(character, !(favorite || wasFavorite))
+    dispatch({
+      type: actionTypes.setFavorite,
+      payload: !(favorite || wasFavorite)
+    })
+  }
+
   return (
     <article
       className='Character'
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      onClick={() => onClick(character)}
+      onClick={onClick}
     >
       <img src={image} alt={name} />
-      <h3>{name}</h3>
+      <div className='name-and-favorite'>
+        <h3>{name}</h3>
+        {(favorite || wasFavorite) && (
+          <img
+            src='https://img.icons8.com/material-rounded/24/000000/like--v1.png'
+            alt='favorite'
+          />
+        )}
+      </div>
       <footer
         style={{
           display,

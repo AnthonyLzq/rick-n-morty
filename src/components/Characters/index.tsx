@@ -32,9 +32,39 @@ const reducer = (state: CharactersState, action: CharactersAction) => {
 
       if (ids.includes((payload as RickAndMortyCharacter).id)) return state
 
+      const favorites = state.favorites.concat(payload as RickAndMortyCharacter)
+      localStorage.setItem(
+        'favorites',
+        JSON.stringify([
+          ...new Set(favorites.map(({ id }) => id))
+        ])
+      )
+
       return {
         ...state,
-        favorites: state.favorites.concat(payload as RickAndMortyCharacter)
+        favorites
+      }
+    }
+    case actionTypes.removeFromFavorites: {
+      const favorites = state.favorites.filter(
+        f => f.id !== (payload as RickAndMortyCharacter).id
+      )
+      localStorage.setItem(
+        'favorites',
+        JSON.stringify([
+          ...new Set(favorites.map(({ id }) => id))
+        ])
+      )
+
+      return {
+        ...state,
+        favorites
+      }
+    }
+    case actionTypes.setFavorites: {
+      return {
+        ...state,
+        favorites: payload as RickAndMortyCharacter[]
       }
     }
     case actionTypes.search: {
@@ -49,12 +79,29 @@ const reducer = (state: CharactersState, action: CharactersAction) => {
   }
 }
 
+const getFavoritesFromLocalStorage = (): number[] => {
+  const savedFavoriteIds = localStorage.getItem('favorites')
+
+  return savedFavoriteIds ? JSON.parse(savedFavoriteIds) : []
+}
+
 const Characters = () => {
   const { darkMode } = useContext(DarkModeContext)
   const [{ characters, favorites, search }, dispatch] = useReducer(
     reducer,
     initialState
   )
+  const favoriteIds = favorites.map(({ id }) => id)
+  console.log('favoriteIds', favoriteIds)
+
+  useEffect(() => {
+    const favIds = getFavoritesFromLocalStorage()
+    console.log('favIds', favIds)
+    dispatch({
+      type: actionTypes.setFavorites,
+      payload: characters.filter(({ id }) => favIds.includes(id))
+    })
+  }, [characters])
 
   const filteredCharacters = useMemo(
     () =>
@@ -78,9 +125,14 @@ const Characters = () => {
       })
   }, [])
 
-  const handleClick = (character: RickAndMortyCharacter): void => {
+  const handleClick = (
+    character: RickAndMortyCharacter,
+    favorite: boolean
+  ): void => {
     dispatch({
-      type: actionTypes.addToFavorites,
+      type: favorite
+        ? actionTypes.addToFavorites
+        : actionTypes.removeFromFavorites,
       payload: character
     })
   }
@@ -96,20 +148,6 @@ const Characters = () => {
 
   return (
     <>
-      {favorites.length > 0 && (
-        <>
-          <h3>Favorites:</h3>
-          <section className='Characters'>
-            {favorites.map(character => (
-              <Character
-                key={character.id}
-                character={character}
-                onClick={handleClick}
-              />
-            ))}
-          </section>
-        </>
-      )}
       <nav className='search-container'>
         <div className='search'>
           <input
@@ -138,13 +176,20 @@ const Characters = () => {
       </nav>
       <h3>Rick n' Morty characters:</h3>
       <section className='Characters'>
-        {filteredCharacters.map(character => (
-          <Character
-            key={character.id}
-            character={character}
-            onClick={handleClick}
-          />
-        ))}
+        {filteredCharacters.map(character => {
+          const wasFavorite = favoriteIds.includes(character.id)
+
+          console.log({ wasFavorite, id: character.id })
+
+          return (
+            <Character
+              key={character.id}
+              character={character}
+              onClick={handleClick}
+              wasFavorite={wasFavorite}
+            />
+          )
+        })}
       </section>
     </>
   )

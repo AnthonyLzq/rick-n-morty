@@ -15,6 +15,7 @@ type CharactersAndInfo = {
 type CharactersPayload =
   | CharactersAndInfo
   | RickAndMortyCharacter
+  | RickAndMortyCharacter []
   | string
 
 interface CharactersAction {
