@@ -92,11 +92,9 @@ const Characters = () => {
     initialState
   )
   const favoriteIds = favorites.map(({ id }) => id)
-  console.log('favoriteIds', favoriteIds)
 
   useEffect(() => {
     const favIds = getFavoritesFromLocalStorage()
-    console.log('favIds', favIds)
     dispatch({
       type: actionTypes.setFavorites,
       payload: characters.filter(({ id }) => favIds.includes(id))
@@ -178,8 +176,6 @@ const Characters = () => {
       <section className='Characters'>
         {filteredCharacters.map(character => {
           const wasFavorite = favoriteIds.includes(character.id)
-
-          console.log({ wasFavorite, id: character.id })
 
           return (
             <Character
