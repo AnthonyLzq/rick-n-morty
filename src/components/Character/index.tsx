@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useReducer } from 'react'
+import { FC, useContext, useEffect, useReducer, memo } from 'react'
 
 import DarkModeContext from 'context/darkModeContext'
 import { animations, actionTypes, reducerValidation } from './utils'
@@ -52,7 +52,12 @@ const reducer = (
   return reducerObject(state, payload)[type]
 }
 
-const Character: FC<CharacterProps> = props => {
+const memoIsInputEqual = (
+  oldProps: CharacterProps,
+  newProps: CharacterProps
+): boolean => oldProps.wasFavorite === newProps.wasFavorite
+
+const Character: FC<CharacterProps> = memo(props => {
   const { character, onClick: onClickCharacter, wasFavorite } = props
   const { name, image, status, gender, species, origin, location } = character
   const { darkMode } = useContext(DarkModeContext)
@@ -152,6 +157,6 @@ const Character: FC<CharacterProps> = props => {
       </footer>
     </article>
   )
-}
+}, memoIsInputEqual)
 
 export default Character
