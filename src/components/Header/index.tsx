@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 
 import DarkModeContext from 'context/darkModeContext'
+import { COLORS } from 'utils'
 
 import './index.css'
 
@@ -15,7 +16,7 @@ const Header = () => {
     <header className='Header'>
       <h2
         style={{
-          color: darkMode ? '#b2b2b2' : '#222'
+          color: darkMode ? COLORS.white : COLORS.black
         }}
       >
         ReactHooks
@@ -25,7 +26,7 @@ const Header = () => {
         onClick={handleClick}
         style={{
           border: 0,
-          backgroundColor: darkMode ? '#222' : '#b2b2b2'
+          backgroundColor: darkMode ? COLORS.black : COLORS.white
         }}
       >
         {darkMode ? (

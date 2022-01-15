@@ -2,6 +2,7 @@ import { useEffect, useReducer } from 'react'
 
 import Character from 'components/Character'
 import { actionTypes, reducerValidation } from './utils'
+
 import './index.css'
 
 const initialState: CharactersState = {

@@ -2,6 +2,8 @@ import { FC, useContext, useReducer } from 'react'
 
 import DarkModeContext from 'context/darkModeContext'
 import { animations, actionTypes, reducerValidation } from './utils'
+import { COLORS } from 'utils'
+
 import './index.css'
 
 interface CharacterProps {
@@ -51,8 +53,8 @@ const Character: FC<CharacterProps> = props => {
   } = props
   const { name, image, status, gender, species, origin, location } = character
   const { darkMode } = useContext(DarkModeContext)
-  const backgroundColor = darkMode ? '#b2b2b2' : '#222'
-  const color = darkMode ? '#222' : '#b2b2b2'
+  const backgroundColor = darkMode ? COLORS.white : COLORS.black
+  const color = darkMode ? COLORS.black : COLORS.white
   const [{ animation, display, t }, dispatch] = useReducer(
     reducer,
     initialState
