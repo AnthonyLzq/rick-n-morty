@@ -32,7 +32,10 @@ const reducerObject = (
   }
 })
 
-const reducer = (state: CharacterState, action: CharacterAction) => {
+const reducer = (
+  state: CharacterState,
+  action: CharacterAction
+): CharacterState => {
   reducerValidation(action)
 
   const { payload, type } = action
