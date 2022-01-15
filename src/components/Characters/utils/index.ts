@@ -15,6 +15,11 @@ const reducerValidation = (action: CharactersAction) => {
       typeof arg.info.count === 'number'
     )
   }
+  const isRickAndMortyCharacters = (
+    arg: any
+  ): arg is RickAndMortyCharacter[] => {
+    return arg && Array.isArray(arg) && typeof arg[0].id === 'number'
+  }
   const isRickAndMortyCharacter = (arg: any): arg is RickAndMortyCharacter => {
     return arg && typeof arg.id === 'number'
   }
@@ -30,9 +35,18 @@ const reducerValidation = (action: CharactersAction) => {
       `CharactersPayload does not match the type. Expected payload to be "CharactersAndInfo", but received ${payload}`
     )
 
-  if (type === actionTypes.addToFavorites && !isRickAndMortyCharacter(payload))
+  if (
+    (type === actionTypes.addToFavorites ||
+      type === actionTypes.removeFromFavorites) &&
+    !isRickAndMortyCharacter(payload)
+  )
     throw new Error(
       `CharactersPayload does not match the type. Expected payload to be "RickAndMortyCharacter", but received ${payload}`
+    )
+
+  if (type === actionTypes.setFavorites && !isRickAndMortyCharacters(payload))
+    throw new Error(
+      `CharactersPayload does not match the type. Expected payload to be "RickAndMortyCharacter[]", but received ${payload}`
     )
 
   if (type === actionTypes.search && !isString(payload))
