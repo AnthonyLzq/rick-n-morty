@@ -6,6 +6,7 @@ import './index.css'
 
 interface CharacterProps {
   character: RickAndMortyCharacter
+  onClick: (character: RickAndMortyCharacter) => void
 }
 
 const initialState: CharacterState = {
@@ -45,8 +46,10 @@ const reducer = (
 
 const Character: FC<CharacterProps> = props => {
   const {
-    character: { name, image, status, gender, species, origin, location }
+    character,
+    onClick
   } = props
+  const { name, image, status, gender, species, origin, location } = character
   const { darkMode } = useContext(DarkModeContext)
   const backgroundColor = darkMode ? '#b2b2b2' : '#222'
   const color = darkMode ? '#222' : '#b2b2b2'
@@ -97,6 +100,7 @@ const Character: FC<CharacterProps> = props => {
       className='Character'
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onClick={() => onClick(character)}
     >
       <img src={image} alt={name} />
       <h3>{name}</h3>
